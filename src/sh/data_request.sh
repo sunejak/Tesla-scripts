@@ -39,7 +39,7 @@ response=$(curl -s -X POST -d "grant_type=password&client_id=${CLIENT_ID}&client
 if [[ $? != 0 ]] ; then echo "Failed getting oauth token" ; exit 1
 fi
 token=$(echo $response | jq '.access_token' | tr -d '"' )
-if [[ -z "${token}" ]] ; then echo "ERROR, getting access Token, resulted in: ${response}" ; exit 1
+if [[ "${token}" == null ]] ; then echo "ERROR, getting access Token, resulted in: ${response}" ; exit 1
 fi
 
 # Retrieve a list of your owned vehicles
