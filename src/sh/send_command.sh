@@ -36,7 +36,7 @@ response=$(curl -s -X POST -d "grant_type=password&client_id=${CLIENT_ID}&client
 if [[ $? != 0 ]] ; then exit 1
 fi
 token=$(echo $response | jq '.access_token' | tr -d '"' )
-if [[ ${token} == '' ]] ; then echo ${COMMAND} could not be run ; exit 1
+if [[ "${token}" == null ]] ; then echo "ERROR, getting access Token, resulted in: ${response}" ; exit 1
 fi
 
 # Retrive a list of your owned vehicles
