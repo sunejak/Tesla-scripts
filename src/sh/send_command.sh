@@ -1,38 +1,30 @@
 #!/bin/bash
 # Script to send commands towards a Tesla
+#
+# assumes that you have your keys in the keys.txt file
+#
 # Copyright Sune Jakobsson, 2017
 #
 # https://timdorr.docs.apiary.io
 #
 if [[ $1 == "" ]] ; then
-    echo "Usage: send_command.sh email password command"
+    echo "Usage: send_command.sh command"
     echo "Where command can be:"
     echo "auto_conditioning_start"
     echo "auto_conditioning_stop"
     exit 1
 fi
-EMAIL=$1
 
-if [[ $2 == "" ]] ; then
-    echo "Usage: send_command.sh email password command"
-    exit 1
-fi
-PASSWORD=$2
-
-if [[ $3 == "" ]] ; then
-    echo "Usage: send_command.sh email password command"
-    exit 1
-fi
-COMMAND=$3
+COMMAND=$1
 
 source ./keys.txt
-if [[ $? != 0 ]] ; then echo "Failed opening file with oauth keys" ; exit 1
+if [[ $? != 0 ]] ; then echo "Failed opening file with keys" ; exit 1
 fi
 URL=https://owner-api.teslamotors.com
 OAUTH=/oauth/token
 
 # Fetch the oauth token you need for later API calls.
-response=$(curl -s -X POST -d "grant_type=password&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&email=${EMAIL}&password=${PASSWORD}" ${URL}${OAUTH})
+response=$(curl -s -X POST -d "grant_type=password&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&email=${EMAIL}&password=${PASSW}" ${URL}${OAUTH})
 if [[ $? != 0 ]] ; then exit 1
 fi
 token=$(echo $response | jq '.access_token' | tr -d '"' )
