@@ -8,7 +8,7 @@ Depends on <b>jq</b> for pretty printing of JSON data.
 
 Inspired by https://timdorr.docs.apiary.io/
 
-You also need the keys for the Oauth API in a file named keys.txt, defining the variables CLIENT_ID and CLIENT_SECRET
+You also need the keys for the Oauth API in a file named keys.txt, defining the variables CLIENT_ID CLIENT_SECRET EMAIL and PASSW
 
  1. Get data from your model S, ./sh/data_request.sh email password command
   <ul>
